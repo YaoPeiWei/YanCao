@@ -1,0 +1,75 @@
+
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>汕尾烟草专卖系统登陆</title>
+
+    <script src="../../resources/static/js/guanFangJs/jquery/2.0.0/jquery.min.js" th:src="@{/js/guanFangJs/jquery/2.0.0/jquery.min.js}"></script>
+    <link href="../../resources/static/css/guanFangCss/bootstrap/3.3.6/bootstrap.min.css" rel="stylesheet"   th:href="@{/css/guanFangCss/bootstrap/3.3.6/bootstrap.min.css}"/>
+    <script src="../../resources/static/js/guanFangJs/bootstrap/3.3.6/bootstrap.min.js" th:src="@{/js/guanFangJs/bootstrap/3.3.6/bootstrap.min.js}"></script>
+
+    <style>
+        div.container div.row div {
+        //background-color: lightgray;
+        //border: 1px solid gray;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+<div style="height: 100%;width: 100%;background-color: #DCDCDC;position: absolute;">
+    <div class="container" style="height: 90%;padding-top: 5%;">
+        <div class="row" style="height: 100%;background-color: white;background-size: 100%;background-image: url(static/img/yancao.jpg);background-repeat:no-repeat"
+             th:style="'background-image:url('+	@{/img/yancao.jpg}+');height: 100%;background-color: white; background-repeat:no-repeat;background-size: 100%;'">
+            <div class="cos-xs-12" style="height: 40%;background-image:url(/static/img/picture.png); background-repeat:no-repeat;background-position:center center;"
+                 th:style="'background-image:url('+	@{/img/picture.png}+');height: 40%; background-repeat:no-repeat;background-position:center center;'">
+            </div>
+
+            <div class="cos-xs-12" style="height: 50%;padding-top: 5%;">
+                <div style="width: 70%; margin: auto;height: 70%;text-align: center;padding-left: 15%;">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-xs-5">
+                                <form class="form-inline">
+                                    <div class="form-group">
+                                        <label>账号:</label><input name="name" id="name" style="width: 200px;" type="text" placeholder="账户ID/手机号码" class="form-control" />
+
+                                    </div>
+                                    <br><br>
+                                    <div class="form-group">
+                                        <label>密码:</label><input style="width: 200px;" type="password" name="password" id="password" class="form-control" />
+                                    </div>
+                                </form>
+                                <br>
+                                <button class="btn btn-primary" id="submit">
+                                    <span class="glyphicon glyphicon-log-in"></span>
+                                    登陆
+                                </button>
+                                <a href="#" onclick="reg()">
+                                    <button class="btn btn-success" id="register">
+                                        <span class="glyphicon glyphicon-log-in"></span>
+                                        注册
+                                    </button>
+                                </a>
+                                <br><br>
+                                <a href="#" onclick="forget()">忘记密码?</a>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="cos-xs-12" style="height: 10%">
+                <h3>汕尾烟草专卖</h3>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="zhuce" style="display: none;z-index: 10;position: absolute;margin-left: 35%;margin-top: 10%;width: 500px;height: 500px"></div>
+<div id="hidebg" style="position: absolute;background-color:#8c8c8c;width:100%;height:100%;opacity:0.6;display:none; z-Index:5;float: left"></div>
+<script th:src="@{/js/mainJs/userLogin.js}" ></script>
+</body>
+</html>

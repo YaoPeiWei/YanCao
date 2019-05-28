@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>购置信息处理</title>
+    <script src="../../resources/static/js/guanFangJs/jquery/2.0.0/jquery.min.js" th:src="@{/js/guanFangJs/jquery/2.0.0/jquery.min.js}"></script>
+    <link href="../../resources/static/css/guanFangCss/bootstrap/3.3.6/bootstrap.min.css" rel="stylesheet"   th:href="@{/css/guanFangCss/bootstrap/3.3.6/bootstrap.min.css}"/>
+    <script src="../../resources/static/js/guanFangJs/bootstrap/3.3.6/bootstrap.min.js" th:src="@{/js/guanFangJs/bootstrap/3.3.6/bootstrap.min.js}"></script>
+    <script type="text/javascript" src="../../resources/static/js/mainJs/jquery.js" th:src="@{/js/mainJs/jquery.js}"></script>
+
+    <script type="text/javascript" src="../../resources/static/js/mainJs/jquery.js" th:src="@{/js/mainJs/jquery.js}"></script>
+    <link rel="stylesheet" type="text/css" href="../../resources/static/css/mainCss/abc.css" th:href="@{/css/mainCss/abc.css}"/>
+    <script type="text/javascript" src="../../resources/static/js/mainJs/dataTables.responsive.min.js" th:src="@{/js/mainJs/dataTables.responsive.min.js}"></script>
+    <script th:src="@{/js/mainJs/backAdminProcessAppointment.js}" ></script>
+</head>
+<body>
+<div style="height: 100%;width: 100%;position: absolute;">
+    <!--这里是左边状态栏-->
+    <div style="height: 100%;width: 15%;background-color:#2A3F54;float: left;">
+        <div style="height: 10%;width: 100%;">
+            <div style="padding-top: 10%;color:#ECF0F1">
+                <h3 th:text="${'welcome,'+session.backadmin.name}"></h3>
+            </div>
+        </div>
+
+        <div id="menu" style="height: 80%;width: 100%;">
+            <script>
+                $("#menu").load("/thymeleaf/backAdminLogin/html2")
+            </script>
+        </div>
+    </div>
+
+    <!--右边的主要内容部分-->
+    <div style="width: 85%;height: 100%;float: right;">
+        <div style="width: 100%;height: 5%;text-align: center;"><h3>购置信息</h3></div>
+
+        <div ng-controller="cartController" class="container" id="main">
+            <table  id="table_id" border="1" class="display">
+                <thead>
+                <tr>
+                    <td>用户</td>
+                    <td>地址</td>
+                    <td>手机</td>
+                    <td>状态</td>
+                    <td>地址</td>
+                    <td>订单编号</td>
+                    <td>操作</td>
+                </tr>
+                </thead>
+
+                <tbody>
+                <tr th:each="c: ${userBuysList}">
+                    <td th:text="${c.user}" th:id="${c.user}"></td>
+                    <!--<td id="user" th:text="${c.user}"></td>-->
+                    <!--<td id="user">${c.user}</td>-->
+                    <td th:text="${c.address}"></td>
+                    <td th:text="${c.phone}"></td>
+                    <td th:text="${c.state==1?'未处理':'已处理'}"></td>
+                    <p th:if="${c.location==0}"><td>陆丰</td></p>
+                    <p th:if="${c.location==1}"><td>海丰</td></p>
+                    <p th:if="${c.location==2}"><td>城区</td></p>
+                    <p th:if="${c.location==3}"><td>汕尾高管</td></p>
+                    <!--<td th:text="${c.location}"></td>-->
+                    <td th:text="${c.order}" th:id="${c.order}" class="o"></td>
+                    <!--<td>
+                        <p th:if="${c.state==0}">
+                            <td><a>处理</a></td>
+                        </p>
+                    <p th:if="${c.state==0}"><td>“132”</td></p>
+                    </td>-->
+                    <td th:if="${c.state==0}"><a href="#">未支付订单</a></td>
+                    <td th:if="${c.state==1}"><a id="processed" class="processed">处理</a></td>
+                    <td th:if="${c.state==2}"><h3 align="center">已处理</h3></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+</body>
+</html>

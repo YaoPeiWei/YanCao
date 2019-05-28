@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>预购置信息</title>
+
+    <!--导入js包-->
+    <script src="../../static/js/guanFangJs/jquery/2.0.0/jquery.min.js" th:src="@{/js/guanFangJs/jquery/2.0.0/jquery.min.js}"></script>
+    <script type="text/javascript" src="../../static/js/mainJs/jquery.js" th:src="@{/js/mainJs/jquery.js}"></script>
+
+    <script type="text/javascript" src="../../static/js/mainJs/jquery.js" th:src="@{/js/mainJs/jquery.js}"></script>
+    <link rel="stylesheet" type="text/css" href="../../static/css/mainCss/abc.css" th:href="@{/css/mainCss/abc.css}"/>
+    <script type="text/javascript" src="../../static/js/mainJs/dataTables.responsive.min.js" th:src="@{/js/mainJs/dataTables.responsive.min.js}"></script>
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $("#table_id").DataTable();
+
+
+            $(".processed").on("click",function(){
+                var obj = $(this).parents("tr").children(0);
+                var user = obj.attr("id");
+
+                window.location.href = "/thymeleaf/queryAndEdit/processed?user="+user;
+                /*$.ajax({
+                    type:"GET",//请求类型
+                    url:"/thymeleaf/queryAndEdit/processed",//请求的url
+                    data:{user:user},//请求参数
+                    dataType:"json",//ajax接口（请求url）返回的数据类型
+                    success:function(data){//data：返回数据（json对象）
+                        if(data.msg == "success"){
+                            alert("已處理！");
+                            $("#newpassword").removeAttr("readonly");
+                        }else if(data.msg == "error"){
+                            alert("發生错误");
+                        }
+                    },
+                    error:function(data){
+                        alert("请求错误");
+                    }
+                });*/
+
+
+            });
+
+        })
+    </script>
+    <script type="text/javascript">
+        $(function(){
+            $("tbody tr:even").css("background","blanchedalmond");
+
+            $("tr").mouseover(function(){
+                $(this).css("background","aqua");
+            });
+
+            $("tr").mouseout(function(){
+                $("tbody tr:even").css("background","blanchedalmond");
+                $("tbody tr:odd").css("background","white");
+            })
+        });
+
+    </script>
+
+
+</head>
+<body>
+
+<div ng-controller="cartController" class="container" id="main">
+    <table  id="table_id" border="1" class="display">
+        <thead>
+        <tr>
+            <td>用户</td>
+            <td>地址</td>
+            <td>手机</td>
+            <td>状态</td>
+            <td>地址</td>
+            <td>订单编号</td>
+            <td>操作</td>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr th:each="c: ${userBuysList}">
+            <td th:text="${c.user}" th:id="${c.user}"></td>
+            <!--<td id="user" th:text="${c.user}"></td>-->
+            <!--<td id="user">${c.user}</td>-->
+            <td th:text="${c.address}"></td>
+            <td th:text="${c.phone}"></td>
+            <td th:text="${c.state==0?'未处理':'已处理'}"></td>
+            <p th:if="${c.location==0}"><td>陆丰</td></p>
+            <p th:if="${c.location==1}"><td>海丰</td></p>
+            <p th:if="${c.location==2}"><td>城区</td></p>
+            <p th:if="${c.location==3}"><td>汕尾高管</td></p>
+            <!--<td th:text="${c.location}"></td>-->
+            <td th:text="${c.order}"></td>
+            <!--<td>
+                <p th:if="${c.state==0}">
+                    <td><a>处理</a></td>
+                </p>
+            <p th:if="${c.state==0}"><td>“132”</td></p>
+            </td>-->
+            <td th:if="${c.state==0}"><a id="processed" class="processed">处理</a></td>
+            <td th:if="${c.state==1}"><h3 align="center">已处理</h3></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+</body>
+</html>

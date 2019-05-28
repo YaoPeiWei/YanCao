@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="UTF-8">
+		<title>个人信息</title>
+		<script src="../../resources/static/js/guanFangJs/jquery/2.0.0/jquery.min.js" th:src="@{/js/guanFangJs/jquery/2.0.0/jquery.min.js}"></script>
+		<link href="../../resources/static/css/guanFangCss/bootstrap/3.3.6/bootstrap.min.css" rel="stylesheet"   th:href="@{/css/guanFangCss/bootstrap/3.3.6/bootstrap.min.css}"/>
+		<script src="../../resources/static/js/guanFangJs/bootstrap/3.3.6/bootstrap.min.js" th:src="@{/js/guanFangJs/bootstrap/3.3.6/bootstrap.min.js}"></script>
+
+		<script src="../../resources/static/js/guanFangJs/jquery/2.0.0/jquery.min.js" th:src="@{/js/guanFangJs/jquery/2.0.0/jquery.min.js}"></script>
+		<script type="text/javascript" src="../../resources/static/js/mainJs/jquery.js" th:src="@{/js/mainJs/jquery.js}"></script>
+		<script th:src="@{/js/mainJs/backAdminMessage.js}" ></script>
+
+	</head>
+	<body>
+		<div style="height: 100%;width: 100%;position: absolute;">
+			<!--这里是左边状态栏-->
+			<div style="height: 100%;width: 15%;background-color:#2A3F54;float: left;">
+				<div style="height: 10%;width: 100%;">
+					<div style="padding-top: 10%;color:#ECF0F1">
+						<h3 th:text="${'welcome,'+session.backadmin.name}"></h3>
+					</div>
+				</div>
+				
+				<div id="menu" style="height: 80%;width: 100%;">
+					<script>
+						$("#menu").load("/thymeleaf/backAdminLogin/html2")
+					</script>
+				</div>
+			</div>
+			
+			<!--右边的主要内容部分-->
+			<div style="width: 85%;height: 100%;float: right;">
+				<div style="width: 100%;height: 5%;text-align: center;">
+					<h2>个人信息</h2>
+					
+				</div>
+				
+				<div style="height: 90%;width: 100%;">
+					<div style="width: 80%;margin: auto;height: 100%;padding-top: 5%;">
+						<div style="width: 100%;height: 90%;margin:auto;text-align: center;">
+							
+								<div class="col-xs-12">
+									<form action="/thymeleaf/queryAndEdit/modifyPersonalInformation" method="post" enctype="multipart/form-data" class="form-inline">
+										<div class="form-group">
+											<label>账号ID:</label><input readonly id="account" name="account" style="width: 200px;" type="text" class="form-control" th:value="${backAdmin.getAccount()}"/>
+										</div>
+										<br><br>
+										<div class="form-group">
+											<label>地区:</label><input hidden readonly id="location" name="location" style="width: 200px;" type="text" class="form-control" th:value="${backAdmin.getLocation()}"/>
+										</div>
+										<br><br>
+										<div class="form-group">
+											<label>真实姓名:</label><input id="name" name="name" th:value="${backAdmin.getName()}" readonly style="width: 200px;" type="text" class="form-control" />
+										</div> 
+										<br><br>
+										<div class="form-group">
+											<label>原密码:</label><input placeholder="如需修改请填写" style="width: 200px;" type="password" class="form-control" id="oldpassword"/>
+										</div>
+										<br><br>
+										<div class="form-group">
+											<label>新密码:</label><input readonly id="newpassword" name="password" type="password" style="width: 200px;" class="form-control" />
+										</div>
+										<br><br>
+										<div class="form-group">
+											<label>联系方式:</label><input id="phone" name="phone" style="width: 200px;" class="form-control" th:value="${backAdmin.getPhone()}"/>
+										</div>
+										<br><br>
+											性别: &nbsp;&nbsp;<select class="form-control">
+											<option value="1" name="sex">男</option>
+   											<option value="0" name="sex">女</option>
+										</select>
+										<br><br>
+										<div class="form-group">
+											图片:<input name="file" accept="image/*" id="file" type="file" onchange="showPreview(this)" class="form-group" th:value="${backAdmin.getImg()}"/><br>
+											<img id="p" name="img" th:src="@{/img/upLoad/}+${backAdmin.getImg()}" src="${backAdmin.img}" class="img-circle"  style="width: 120px;height: 120px;margin: auto;" />
+										</div>
+										<br>
+										<button class="btn btn-primary" id="submit" type="submit">
+											<span class="glyphicon glyphicon-log-in"></span>
+											保存
+										</button>
+
+									</form>
+
+
+								</div>
+							
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

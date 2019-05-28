@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>烟草信息</title>
+    <script src="../../resources/static/js/guanFangJs/jquery/2.0.0/jquery.min.js" th:src="@{/js/guanFangJs/jquery/2.0.0/jquery.min.js}"></script>
+    <link rel="stylesheet" type="text/css" href="../../resources/static/css/mainCss/abc.css" th:href="@{/css/mainCss/abc.css}"/>
+    <script type="text/javascript" src="../../resources/static/js/mainJs/dataTables.responsive.min.js" th:src="@{/js/mainJs/dataTables.responsive.min.js}"></script>
+    <link href="../../resources/static/css/guanFangCss/bootstrap/3.3.6/bootstrap.min.css" rel="stylesheet"   th:href="@{/css/guanFangCss/bootstrap/3.3.6/bootstrap.min.css}"/>
+    <script src="../../resources/static/js/guanFangJs/bootstrap/3.3.6/bootstrap.min.js" th:src="@{/js/guanFangJs/bootstrap/3.3.6/bootstrap.min.js}"></script>
+
+</head>
+<body>
+<div style="height: 100%;width: 100%;position: absolute;">
+    <!--这里是左边状态栏-->
+    <div style="height: 100%;width: 15%;background-color:#2A3F54;float: left;">
+        <div style="height: 10%;width: 100%;">
+            <div style="padding-top: 10%;color:#ECF0F1">
+                <h3 th:text="${'welcome,'+session.backadmin.name}"></h3>
+            </div>
+        </div>
+
+        <div id="menu" style="height: 80%;width: 100%;">
+            <script>
+                $("#menu").load("/thymeleaf/backAdminLogin/html2")
+            </script>
+        </div>
+    </div>
+
+    <!--右边的主要内容部分-->
+    <div style="width: 85%;height: 100%;float: right;">
+        <div style="width: 100%;height: 5%;text-align: center"><h3>烟草信息</h3></div>
+
+        <div ng-controller="cartController" class="container" id="main">
+            <table  id="table_id" border="1" class="display">
+                <thead>
+                <tr>
+                    <td hidden>account（id）</td>
+                    <td>名字</td>
+                    <td>剩余容量</td>
+                    <td>图片</td>
+                    <td>累计出货量</td>
+                    <td>价格</td>
+                    <td>操作</td>
+
+                </tr>
+                </thead>
+
+                <tbody>
+                <tr th:each="c: ${cigaretteList}">
+                    <td hidden th:text="${c.account}" th:id="${c.account}" id="account1"></td>
+                    <td th:text="${c.name}"></td>
+                    <td th:text="${c.surplus}"></td>
+                    <td>
+                        <p th:if="${c.img!=''}">
+                            <!--<img id="p" th:src="@{/img/upLoadCigarette/}+${backAdmin.getImg()}" src="${c.img}" width="100px;" height="50px"/>-->
+                            <img id="p" th:src="@{/img/upLoadCigarette/}+${c.getImg()}" src="${c.img}" width="100px;" height="50px"/>
+
+                        </p>
+                        <p th:unless="${c.img}">暂无图片</p>
+                    </td>
+                    <td th:text="${c.cumulative}"></td>
+                    <td th:text="${c.price}"></td>
+                    <td>
+                        <a  href="#" id="processed" class="processed">修改</a>
+                        <a th:href="@{/Cigarette/deleteCig(account=${c.account})}" onclick='return del();'>删除</a>
+                        <font color="red"><h5 th:text="${session.noAuthority}"></h5></font>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<script th:src="@{/js/mainJs/backAdminCigarette.js}" ></script>
+</body>
+</html>

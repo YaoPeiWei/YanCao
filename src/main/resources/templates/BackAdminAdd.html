@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="UTF-8">
+		<title>添加工作人员</title>
+		<script src="../../resources/static/js/guanFangJs/jquery/2.0.0/jquery.min.js" th:src="@{/js/guanFangJs/jquery/2.0.0/jquery.min.js}"></script>
+		<link href="../../resources/static/css/guanFangCss/bootstrap/3.3.6/bootstrap.min.css" rel="stylesheet"   th:href="@{/css/guanFangCss/bootstrap/3.3.6/bootstrap.min.css}"/>
+		<script src="../../resources/static/js/guanFangJs/bootstrap/3.3.6/bootstrap.min.js" th:src="@{/js/guanFangJs/bootstrap/3.3.6/bootstrap.min.js}"></script>
+		<script th:src="@{/js//mainJs/backAdminAdd.js}" ></script>
+	</head>
+	<body>
+		<div style="height: 100%;width: 100%;position: absolute;">
+			<!--这里是左边状态栏-->
+			<div style="height: 100%;width: 15%;background-color:#2A3F54;float: left;">
+				<div style="height: 10%;width: 100%;">
+					<div style="padding-top: 10%;color:#ECF0F1">
+						<h3 th:text="${'welcome,'+session.backadmin.name}"></h3>
+					</div>
+				</div>
+				
+				<div id="menu" style="height: 80%;width: 100%;">
+					<script type="text/javascript">
+						$(document).ready(function () {
+                            $("#menu").load("/thymeleaf/backAdminLogin/html2")
+                        })
+					</script>
+				</div>
+			</div>
+			
+			<!--右边的主要内容部分-->
+			<div style="width: 85%;height: 100%;float: right;">
+				<div style="width: 100%;height: 5%;text-align: center;"><h4>添加工作人员</h4></div>
+				
+				<div style="height: 90%;width: 100%;">
+					<div style="width: 80%;margin: auto;height: 100%;padding-top: 5%;padding-left: 15%">
+						<div style="width: 50%;height: 90%;margin:auto;text-align: left;">
+							
+								<div class="col-xs-12">
+									<form class="form-inline">
+										<div class="form-group">
+											<label>账号ID:</label><input id="accounts" style="width: 200px;" type="text" class="form-control" placeholder="登陆账号" />
+										</div> 
+										<br><br>
+										<div class="form-group">
+											<label>真实姓名:</label><input id="name" style="width: 200px;" type="text" class="form-control" placeholder="真实姓名"/>
+										</div> 
+										<br><br>
+										<div class="form-group">
+											<label>设置密码:</label><input id="password1" type="password" onkeyup="jc()" style="width: 200px; "class="form-control" maxlength="15" placeholder="不超15位的登陆密码" />
+											<label id="red" hidden style="color: red">密码不一致</label>
+										</div>
+										<br><br>
+										<div class="form-group">
+											<label>确认密码:</label><input id="password" onkeyup="jc()" type="password" style="width: 200px;" class="form-control" maxlength="15" placeholder="确认密码" />
+											<label id="green" hidden style="color: green">密码一致</label>
+										</div>
+										<br><br>
+										<div class="form-group">
+											<label>联系方式:</label><input id="phone" style="width: 200px;" class="form-control" />
+										</div>
+										<br><br>
+											性别: &nbsp;&nbsp;<select id="sex" class="form-control">
+											<option value="1">男</option>
+   											<option value="0">女</option>
+										</select>
+										<br><br>
+										工作地区: &nbsp;&nbsp;<select id="location" class="form-control">
+											<option value="0">陆丰</option>
+   											<option value="1">海丰</option>
+   											<option value="2">城区</option>
+   											<option value="3">汕尾高管</option>
+										</select>
+										<br><br>
+										<div class="form-group">
+											图片:<input type="file" onchange="showPreview(this)" class="form-group"/><br>
+											<img id="p" class="img-circle"  style="width: 120px;height: 120px;" />
+										</div>
+										
+									</form>
+									<br>
+									<button class="btn btn-primary" id="submit">
+											<span class="glyphicon glyphicon-log-in"></span>
+											注册
+										</button>
+								</div>
+							
+						</div>
+					</div>
+				</div>
+				
+				<div style="width: 100%;height: 5%">
+			</div>
+		</div>
+		</div>
+	</body>
+</html>

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>修改香烟信息</title>
+
+    <script src="../../static/js/guanFangJs/jquery/2.0.0/jquery.min.js" th:src="@{/js/guanFangJs/jquery/2.0.0/jquery.min.js}"></script>
+    <script type="text/javascript" src="../../static/js/mainJs/jquery.js" th:src="@{/js/mainJs/jquery.js}"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            var pit = null;
+            function showPreview(source) {
+                var file = source.files[0];
+                if(window.FileReader) {
+                    var fr = new FileReader();
+                    var portrait = document.getElementById('p');
+                    fr.onloadend = function(e) {
+                        portrait.src = e.target.result;
+                    };
+                    fr.readAsDataURL(file);
+                    fr.onload=function (ev) {
+                        ev.target.result;
+                        pit = ev.target.result;
+                    }
+                    portrait.style.display = 'block';
+                }
+            }
+
+        })
+
+    </script>
+
+</head>
+<body>
+<form action="/thymeleaf/queryAndEdit/saveCigarette" method="post" enctype="multipart/form-data">
+    <div class="form-group">
+        <label>id:</label><input readonly id="account" name="account" style="width: 200px;" type="text" class="form-control" th:value="${cigarette.getAccount()}"/>
+    </div>
+    <br>
+    <div class="form-group">
+        <label>名字:</label><input id="name" name="name" style="width: 200px;" type="text" class="form-control" th:value="${cigarette.getName()}"/>
+    </div>
+    <br>
+    <div class="form-group">
+        <label>剩余容量:</label><input id="surplus" name="surplus" style="width: 200px;" type="text" class="form-control" th:value="${cigarette.getSurplus()}"/>
+    </div>
+    <br>
+    <div class="form-group">
+        图片:<input name="file" accept="image/*" id="file" type="file" onchange="showPreview(this)" class="form-group" th:value="${cigarette.getImg()}"/><br>
+        <img id="p" name="img" class="img-circle"  style="width: 120px;height: 120px;margin: auto;" th:src="@{/img/upLoad/}+${cigarette.getImg()}" src="${cigarette.img}"/>
+        <!--<p th:unless="${backAdmin.getImg()}">暂无图片</p>-->
+    </div>
+    <br>
+    <div class="form-group">
+        <label>累计出货量:</label><input id="cumulative" name="cumulative" style="width: 200px;" class="form-control" th:value="${cigarette.getCumulative()}"/>
+    </div>
+    <br>
+    <br>
+    <div class="form-group">
+        <label>价格:</label><input id="price" name="price" style="width: 200px;" class="form-control" th:value="${cigarette.getPrice()}"/>
+    </div>
+    <br>
+
+
+    <button class="btn btn-primary" id="submit" type="submit">保存</button>
+</form>
+</body>
+</html>

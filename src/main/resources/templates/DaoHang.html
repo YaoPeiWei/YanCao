@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<title>导航栏</title>
+  <script src="../../resources/static/js/guanFangJs/jquery/jquery.slimscroll.min.js" th:src="@{/js/guanFangJs/jquery/jquery.slimscroll.min.js}"></script>
+  <script src="../../resources/static/js/guanFangJs/jquery/2.0.0/jquery.min.js" th:src="@{/js/guanFangJs/jquery/2.0.0/jquery.min.js}"></script>
+<style>
+body, html { height: 100%; background: #F2F2F2; overflow: hidden; }
+* { margin: 0; padding: 0 }
+body { font: 14px "微软雅黑", "FontAwesome", "Arial Narrow", HELVETICA; -webkit-text-size-adjust: 100%; }
+li { list-style: none }
+a { text-decoration: none; }
+/* navMenu */
+.navMenubox { width: 100%; height: 500px; background: #1c2229; margin: 0 auto; margin-top: 90px; overflow: hidden; }
+.navMenu-top { padding: 10px; color: #fff; border-bottom: 1px solid rgba(255,255,255,.1) }
+.navMenu> li { display: block; margin: 0; padding: 0; border: 0px; }
+.navMenu>li>a { display: block; overflow: hidden; padding-left: 0px; line-height: 40px; color: #ABB1B7; transition: all .3s; position: relative; text-decoration: none; font-size: 17px; border-top: 1px solid #222932; border-bottom: 2px solid #191e24; }
+.navMenu > li:nth-of-type(1)> a { border-top: 1px solid transparent; }
+.navMenu > li:last-child > a { border-bottom: 1px solid transparent; }
+.navMenu>li>a>i { font-size: 20px; float: left; font-style: normal; margin: 0 5px; }
+.navMenu li a .arrow:before { display: block; float: right; margin-top: 1px; margin-right: 15px; display: inline; font-size: 16px; font-family: FontAwesome; height: auto; content: "\f105"; font-weight: 300; text-shadow: none; }
+.navMenu li a .arrow.open:before { float: right; margin-top: 1px; margin-right: 15px; display: inline; font-family: FontAwesome; height: auto; font-size: 16px; content: "\f107"; font-weight: 300; text-shadow: none; }
+.navMenu>li>a.active, .navMenu>li>a:hover { color: #FFF; background: #12181b; }
+.navMenu>li>ul.sub-menu, .navMenu>li>ul.sub-menu>li>ul.sub-menu { display: none; list-style: none; clear: both; margin: 8px 0px 0px 10px; padding-bottom: 5px; }
+.navMenu>li.active > ul.sub-menu, .navMenu>li>ul.sub-menu>li.active >ul.sub-menu { }
+.navMenu>li>ul.sub-menu li { background: none; margin: 0px; padding: 0px; }
+.navMenu>li>ul.sub-menu li>a { display: block; font-size: 16px; line-height: 36px; padding-left: 20px; color: #ABB1B7; clear: both; }
+.navMenu>li>ul.sub-menu li>a.active, .navMenu>li>ul.sub-menu li>a:hover, .navMenu>li>ul.sub-menu >a { color: white; background: #12181b; }
+.icon_1:before { content: "\f0ac"; }
+.icon_2:before { content: "\f0ac"; }
+.icon_3:before { content: "\f0ac"; }
+
+
+/*---------------------*/
+</style>
+</head>
+<body>
+<div >
+  <div id="slimtest1">
+    <div class="navMenu-top">
+      <div id="mini" style=""><span class=" glyphicon glyphicon-menu-hamburger"></span></div>
+    </div>
+    <ul class="navMenu">
+      <li> <a href="/thymeleaf/backAdminLogin/index"> <span class=" glyphicon glyphicon-globe"></span>&nbsp;<span></span>主页</span></a>
+       
+   
+      <li > <a href="javascript:;"><span class=" glyphicon glyphicon-globe"></span>&nbsp;<span class="nav-text">商品总览</span>  <span class=" glyphicon glyphicon-triangle-bottom"></span></a>
+        <ul class="sub-menu">
+          <li><a href="/thymeleaf/queryAndEdit/cig" ><span>所有香烟</span></a></li>
+          <li><a  onclick="addCigarette()" href="#"><span>添加流通烟草</span></a></li>
+        </ul>
+      </li>
+      <li > <a href="/thymeleaf/queryAndEdit/processOrder"> <span class=" glyphicon glyphicon-globe"></span>&nbsp;<span>待处理事件</span>  <span class="badge"><h5 th:text="${session.unprocessedInformation}"></h5></span> </a>
+        
+      </li>
+      <li > <a href="javascript:;" > <span class=" glyphicon glyphicon-globe"></span>&nbsp;<span class="nav-text">其他</span>  <span class=" glyphicon glyphicon-triangle-bottom"></span> </a>
+        <ul class="sub-menu">
+          <li><a href="/thymeleaf/Report/selectReport"><span>投诉/意见信息列表</span></a></li>
+          <li><a href="#" onclick="selectALLAdmin()"><span>查询所有工作人员</span></a></li>
+          <li><a href="#" onclick="addAdmin()" ><span>添加工作人员</span></a></li>
+          <li><a href="/thymeleaf/queryAndEdit/queryPersonalInformation"><span>修改个人信息</span></a></li>
+          <li><a href="/thymeleaf/backAdminLogin/loginOut"><span>安全退出</span></a></li>
+          <input  hidden id="account" th:value="${session.backadmin.account}">
+        </ul>
+      </li>
+    </ul>
+  </div>
+</div>
+<script th:src="@{/js//mainJs/daoHang.js}" ></script>
+<script>
+    function addCigarette() {
+        var c= $("#account").val().charAt(0);
+        if(c !=='3'){
+            alert("您不具有此权限")
+        }else {
+            window.location.href="/thymeleaf/Cigarette/add"
+        }
+    }
+</script>
+</body>
+</html>

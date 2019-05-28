@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:p="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../../static/js/guanFangJs/jquery/2.0.0/jquery.min.js" th:src="@{/js/guanFangJs/jquery/2.0.0/jquery.min.js}"></script>
+    <link href="../../static/css/guanFangCss/bootstrap/3.3.6/bootstrap.min.css" rel="stylesheet" th:href="@{/css/guanFangCss/bootstrap/3.3.6/bootstrap.min.css}"/>
+    <script src="../../static/js/guanFangJs/bootstrap/3.3.6/bootstrap.min.js" th:src="@{/js/guanFangJs/bootstrap/3.3.6/bootstrap.min.js}"></script>
+</head>
+<body>
+<div th:if="${orders.size()==0}"} th:id="wu">无订单信息</div>
+    <div th:unless="${orders.size()==0}"} th:id="orders">
+<table>
+    <thead>
+    <tr>
+        <th>香烟名称</th>
+        <th>数量</th>
+        <th>操作</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="o: ${orders}">
+        <td th:text="${o.name}"></td>
+        <td th:text="${o.number}"></td>
+        <td hidden th:text="${o.cigarette}"></td>
+        <td hidden th:text="${o.order}"></td>
+        <td>
+            <button class="addnumber">增加</button>
+            <button class="reducenumber">减少</button>
+        </td>
+    </tr>
+    地址：<input th:id="address"/><br>
+    <input th:id="phone" th:value="${session.user.phone}"/>
+    <button th:id="commit">提交</button>
+    </tbody>
+</table>
+</div>
+</body>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#commit").bind("click",function () {
+            var address = $("#address").val();
+            var phone = $("#phone").val();
+            window.location.href="/thymeleaf/UserBuy/UpdateUserBuy?address="+address+"&phone="+phone;
+        })
+
+        $(".addnumber").bind("click", function(){
+            //用异步将相关的香烟数量信息更新到order表中
+            var t=$(this);
+            var  number= parseInt($(this).parents("tr").children("td:nth-child(2)").text())+1;
+            var order=$(this).parents("tr").children("td:nth-child(4)").text();
+            var cigarette=$(this).parents("tr").children("td:nth-child(3)").text();
+            var n=$(this).parents("tr").children("td:nth-child(2)");
+            //alert(number)
+            $.ajax({
+                url:"UpdateCigaretteNumber",
+                dataType: "json",
+                async:true,
+                data:{"number":number,"order":order,"cigarette":cigarette},
+                type:"GET",
+                success:function(map){
+                    if(map.data==("success")){
+                        n.text(number);
+                    }
+                    else alert("fail");
+                }
+            });
+        });
+
+
+        $(".reducenumber").bind("click", function(){
+            //用异步将相关的香烟数量信息更新到order表中
+            var t=$(this);var p=$(this).parents("tr");
+            var  number= parseInt($(this).parents("tr").children("td:nth-child(2)").text())-1;
+            var order=$(this).parents("tr").children("td:nth-child(4)").text();
+            var cigarette=$(this).parents("tr").children("td:nth-child(3)").text();
+            var n=$(this).parents("tr").children("td:nth-child(2)");
+            //alert(number)
+            if(number==0){
+                var r=confirm("将会移除该香烟");
+                if(r){
+                    $.ajax({
+                        url:"DeleteOrderCigarette",
+                        dataType: "json",
+                        async:true,
+                        data:{"order":order,"cigarette":cigarette},
+                        type:"GET",
+                        success:function(map){
+                            if(map.data==("success")){
+                                //alert("success");
+                                p.remove();
+                                //p.css("{ type:hidden }");
+                                if(map.length=="0"){
+                                    $("body").html("<p>无订单信息</p>")
+                                }
+                            }
+                            else alert("fail");
+                        }
+                    });
+                }
+                return ;
+            }
+            $.ajax({
+                url:"UpdateCigaretteNumber",
+                dataType: "json",
+                async:true,
+                data:{"number":number,"order":order,"cigarette":cigarette},
+                type:"GET",
+                success:function(map){
+                    if(map.data==("success")){
+                        n.text(number);
+                    }
+                    else alert("fail");
+                }
+            });
+        });
+    })
+</script>
+</html>

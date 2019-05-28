@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>后台工作人员</title>
+    <script src="../../resources/static/js/guanFangJs/jquery/2.0.0/jquery.min.js"
+            th:src="@{/js/guanFangJs/jquery/2.0.0/jquery.min.js}"></script>
+    <link href="../../resources/static/css/guanFangCss/bootstrap/3.3.6/bootstrap.min.css" rel="stylesheet"
+          th:href="@{/css/guanFangCss/bootstrap/3.3.6/bootstrap.min.css}"/>
+    <script src="../../resources/static/js/guanFangJs/bootstrap/3.3.6/bootstrap.min.js"
+            th:src="@{/js/guanFangJs/bootstrap/3.3.6/bootstrap.min.js}"></script>
+
+</head>
+
+<body>
+<div style="height: 100%;width: 100%;position: absolute;">
+    <!--这里是左边状态栏-->
+    <div style="height: 100%;width: 15%;background-color:#2A3F54;float: left;">
+        <div style="height: 10%;width: 100%;">
+            <div style="padding-top: 10%;color:#ECF0F1">
+                <h3 th:text="${'welcome,'+session.backadmin.name}"></h3>
+            </div>
+        </div>
+
+        <div id="menu" style="height: 80%;width: 100%;">
+            <script>
+                $("#menu").load("/thymeleaf/backAdminLogin/html2")
+            </script>
+        </div>
+    </div>
+
+    <!--右边的主要内容部分-->
+    <div style="width: 85%;height: 100%;float: right;">
+        <div style="width: 100%;height: 5%;text-align: center;"><h3>投诉/意见信息列表</h3></div>
+
+        <div style="padding-left: 3%;padding-right: 3%;">
+            <table class="table table-striped table-bordered table-hover  table-condensed">
+                <thead>
+                <th>提交人姓名</th>
+                <th>提交时间</th>
+                <th>内容</th>
+
+                </thead>
+                <tbody>
+                <tr th:each="report:${report.list}">
+                    <td th:text="${report.name}"></td>
+                    <td th:text="${report.reportdate}"></td>
+                    <td th:text="${report.neirong}"></td>
+                </tr>
+                </tbody>
+            </table>
+            <br>
+            <div style="margin: auto;text-align: center">
+                <a th:href="@{/Report/selectReport(start=0)}">[首 页]</a>
+                <a th:href="@{/Report/selectReport(start=${report.pageNum-1})}">[上一页]</a>
+                <a th:href="@{/Report/selectReport(start=${report.pageNum+1})}">[下一页]</a>
+                <a th:href="@{/Report/selectReport(start=${report.pages})}">[末 页]</a>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+
+</html>

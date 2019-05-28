@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<title>汕尾烟草管理系统</title>
+
+	<script src="../../resources/static/js/guanFangJs/jquery/2.0.0/jquery.min.js" th:src="@{/js/guanFangJs/jquery/2.0.0/jquery.min.js}"></script>
+	<link href="../../resources/static/css/guanFangCss/bootstrap/3.3.6/bootstrap.min.css" rel="stylesheet"   th:href="@{/css/guanFangCss/bootstrap/3.3.6/bootstrap.min.css}"/>
+	<script src="../../resources/static/js/guanFangJs/bootstrap/3.3.6/bootstrap.min.js" th:src="@{/js/guanFangJs/bootstrap/3.3.6/bootstrap.min.js}"></script>
+	<script th:src="@{/js/mainJs/backAdminLogin.js}" ></script>
+
+	<style>
+		div.container div.row div {
+
+		//background-color: lightgray;
+		//border: 1px solid gray;
+			text-align: center;
+		}
+
+	</style>
+</head>
+<body>
+<div  th:style="'height: 100%;width: 100%;background-image: url('+@{/img/userLogin.jpg}+');position: absolute;color: white;'">
+	<div style="margin: auto;text-align: center;margin-top: 15%;">
+		<form class="form-inline">
+			<div class="form-group">
+				<input placeholder="ID" name="account" id="account" style="width: 200px;" type="text" class="form-control" />
+			</div>
+			<br><br>
+			<div class="form-group">
+				<input placeholder="password" name="password" id="password" style="width: 200px;" type="password" class="form-control" />
+			</div>
+			<br><br>
+		</form>
+		<button class="btn btn-primary" id="submit">
+			<span class="glyphicon glyphicon-log-in"></span>
+			登陆
+		</button>
+	</div>
+
+</div>
+
+</body>
+</html>

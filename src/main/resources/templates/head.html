@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<div style="width: 20%;height: 100%;float: left;text-align: center;">
+    <a href="/thymeleaf/Cigarette/SelectCigarette" style="text-decoration: none;">首页</a>
+</div>
+<div style="width: 20%;height: 100%;float: left;text-align: center;">
+    <a href="/thymeleaf/Order/SelectOrder"  style="text-decoration: none;">我的订单</a>
+</div>
+<div style="width: 20%;height: 100%;float: left;text-align: center;">
+    <!--<a href="#" style="text-decoration: none;">投诉/意见</a>-->
+    <a href="#" data-toggle="modal" data-target="#myModal" style="text-decoration: none;">
+        投诉/意见
+    </a>
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button data-dismiss="modal" class="close" type="button"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title">信息反馈</h4>
+                </div>
+                <div class="modal-body">
+                    <p>投诉/意见内容</p>
+                    <textarea class="form-control" id="report"></textarea>
+                </div>
+                <div class="modal-footer">
+                    <p id="ciyu"  style="font-size: 15px;color: red;display: none">含有敏感词语</p>
+                    <button data-dismiss="modal" class="btn btn-default" type="button">关闭</button>
+                    <button class="btn btn-primary" id="tousu" type="button">提交</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div>
+
+    <div style="height:300px"></div>
+</div>
+<div style="width: 20%;height: 100%;float: left;text-align: center;">
+    <a href="/thymeleaf/UserBuy/SelectHistoryOrder" style="text-decoration: none;">历史订单</a>
+</div>
+<div style="width: 20%;height: 100%;float: left;text-align: center;">
+    <a href="/thymeleaf/userIndex/loginOut" style="text-decoration: none;">退出</a>
+</div>
+
+<script th:src="@{/js/mainJs/head.js}" ></script>
+
+</body>
+</html>

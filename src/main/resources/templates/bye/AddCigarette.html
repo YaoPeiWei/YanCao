@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<script src="../../static/js/guanFangJs/jquery/2.0.0/jquery.min.js" th:src="@{/js/guanFangJs/jquery/2.0.0/jquery.min.js}"></script>
+
+<head>
+    <meta charset="UTF-8">
+    <title>新增烟草</title>
+</head>
+<script>
+    <!--检查input内容是否为空-->
+    function CheckNull() {
+        var num = 0;
+        $("input[type$='text']").each(function (n)
+        {
+            if ($(this).val() == "")
+            {
+                num++;
+            }
+
+        });
+        $("input[type$='number']").each(function (n)
+        {
+            if ($(this).val() == "")
+            {
+                num++;
+            }
+
+        });
+        if (num > 0)
+        {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    <!--ajax异步获取account,检查account是否为空-->
+     $(function(){
+         //限制account的字段长度
+         $("#account").attr({maxlength:"6"});
+        $("#account").blur(function () {
+            $.ajax({
+                type: "GET",
+                url: "check",
+                data: {account: $("#account").val()},
+                dataType: "json",
+                success: function (data) {
+                    if (data.account == "empty") {
+                        $("#tip").html("账户不能为空！");
+                        alert("账号不能为空");
+                    }else if(data.account=="exist"){
+                        $("#tip").html("账户已经存在！");
+                    }else if(data.account=="noexist"){
+                      $("#tip").html("账户可以使用");
+                    }
+                },
+                error: function () {
+                    alert("服务器端异常");
+                }
+            })
+        })
+         $("form").submit(function (e)
+             {
+                 if (CheckNull()){
+                     e.preventDefault();
+                     //$("#ErrorMessage").text("不能有空项！");
+                     alert("不能有空项！")
+                 }
+             })
+
+    })
+
+</script>
+
+<body>
+<p>
+    新增烟草
+</p>
+<div id="div1">
+    <span id="ErrorMessage" name="ErrorMessage"></span>
+<form action="addCigarette" method="post" enctype="multipart/form-data">
+    accountID:<input type="text"  name="account" id="account"><span id="tip" th:bgcolor="red"></span><br>
+    名字:<input type="text" name="name" id="name"><br>
+    <!--容量:<input type="text" name="surplus" id="surplus"><br>-->
+    容量：<input type="number" name="surplus" id="surplus" list="greetings">
+    <!-- 使用style="display:none;"将datalist元素设定为不显示 -->
+    <datalist id="greetings" style="display:none;">
+        <option value="1000">1000</option>
+        <option value="3000">3000</option>
+        <option value="5000">5000</option>
+    </datalist>
+    <br>
+    <label>上传图片</label>
+    <input type="file" name="file" accept="image/*" onchange="showPreview(this)"/>
+    <p>图片:</p>
+    <img id="img" th:width="100px" th:high="100px"/><br>
+    出货量：<input type="number" name="cumulative" id="cumulative"><br>
+    价格：<input type="number" name="price" id="price"><br>
+    <button type="submit" id="sub">新增</button><button type="reset">重置</button>
+
+</form>
+</div>
+</body>
+<script>
+    <!--回调显示图片-->
+    var pit = null;
+    function showPreview(source) {
+        var file = source.files[0];
+        if(window.FileReader) {
+            var fr = new FileReader();
+            var portrait = document.getElementById('img');
+            fr.onloadend = function(e) {
+                portrait.src = e.target.result;
+            };
+            fr.readAsDataURL(file);
+            fr.onload=function (ev) {
+                ev.target.result;
+                pit = ev.target.result;
+            }
+            portrait.style.display = 'block';
+        }
+    }
+
+
+</script>
+</html>

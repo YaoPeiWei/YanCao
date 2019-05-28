@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<script src="../../static/js/guanFangJs/jquery/2.0.0/jquery.min.js" th:src="@{/js/guanFangJs/jquery/2.0.0/jquery.min.js}"></script>
+
+<head>
+    <meta charset="UTF-8">
+    <title>修改烟草</title>
+</head>
+<script>
+    <!--检查input框内容是否为空 -->
+    function CheckNull() {
+        var num = 0;
+        $("input[type$='text']").each(function (n)
+        {
+            if ($(this).val() == "")
+            {
+                num++;
+            }
+
+        });
+        $("input[type$='number']").each(function (n)
+        {
+            if ($(this).val() == "")
+            {
+                num++;
+            }
+
+        });
+        if (num > 0)
+        {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    $(function () {
+        $("form").submit(function (e)
+        {
+            if (CheckNull()){
+                e.preventDefault();
+                //$("#ErrorMessage").text("不能有空项！");
+                alert("不能有空项！")
+            }
+        })
+    })
+
+</script>
+<body>
+
+<form action="updateCigarette" method="post" enctype="multipart/form-data">
+    accountID:<input type="text" readonly="readonly" name="account"  th:value="${cigarette.account}"><br>
+    名字:<input type="text" name="name" id="name" th:value="${cigarette.name}"><br>
+    容量:<input type="number" name="surplus" id="surplus" th:value="${cigarette.surplus}"><br>
+    <label>上传图片</label>
+    <input type="file" name="file" accept="image/*" onchange="showPreview(this)"/>
+    <p>图片:</p>
+        <img id="img" name="img" th:value="${cigarette.img}"
+            style="width: 100px;height: 100px;margin: auto;"
+            th:src="@{/img/upLoadCigarette/}+${cigarette.getImg()}"
+            src="${cigarette.img}"/><br>
+    出货量：<input type="number" name="cumulative" id="cumulative" th:value="${cigarette.cumulative}"><br>
+    <button type="submit" >修改</button><button type="reset">重置</button>
+
+</form>
+
+</body>
+<script>
+    <!--图片回调显示-->
+    var pit = null;
+    function showPreview(source) {
+        var file = source.files[0];
+        if(window.FileReader) {
+            var fr = new FileReader();
+            var portrait = document.getElementById('img');
+            fr.onloadend = function(e) {
+                portrait.src = e.target.result;
+            };
+            fr.readAsDataURL(file);
+            fr.onload=function (ev) {
+                ev.target.result;
+                pit = ev.target.result;
+            }
+            portrait.style.display = 'block';
+        }
+    }
+</script>
+</html>

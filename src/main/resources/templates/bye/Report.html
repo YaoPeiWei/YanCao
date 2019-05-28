@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:p="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../../static/js/guanFangJs/jquery/2.0.0/jquery.min.js" th:src="@{/js/guanFangJs/jquery/2.0.0/jquery.min.js}"></script>
+</head>
+<body>
+    <textarea placeholder="举报内容" th:id="report" th:name="report" onblur="checkchar()"></textarea>
+    <button th:id="submit" th:text="提交"></button>
+</body>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#submit").click(function () {
+            var report = $("#report").val()
+            $.ajax({
+                url:"/thymeleaf/Report/CheckChar",
+                dataType: "json",
+                async:true,
+                data:{"report":report},
+                type:"GET",
+                success:function(map){
+                    if(map.data.length==0){
+                       // $(this).attr("action","/thymeleaf/Report/InsertReport")
+                        window.location.href="/thymeleaf/Report/InsertReport?report="+report;
+                    }
+                    if(map.data.length>0){
+                        var s="你的举报中包含：";
+                        $.each(map.data,function(i,a){
+                            s=s+a;
+                            if(i<map.data.length-1){
+                                s+=",";
+                                i++;
+                            }
+                        });
+                        s+="等敏感词汇，请重新修改一遍";
+                        alert(s)
+                        $("#report").focus();
+                    }
+                }
+            });
+        })
+    })
+</script>
+</html>

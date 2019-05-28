@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org" xmlns:p="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../../resources/static/js/guanFangJs/jquery/2.0.0/jquery.min.js" th:src="@{/js/guanFangJs/jquery/2.0.0/jquery.min.js}"></script>
+</head>
+<body>
+<table>
+    <thead>
+    <tr>
+        <th>id</th>
+        <th>香烟名称</th>
+        <th>价格</th>
+        <th>操作</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="c: ${cigarettes}">
+        <td th:text="${c.account}" th:value="${c.account}"></td>
+        <td th:text="${c.name}" th:value="${c.name}"></td>
+        <td th:text="${c.surplus}" th:value="${c.surplus}"></td>
+        <td><button class="addorder" th:id="1">添加</button></td>
+    </tr>
+    <!--<p th:text="'当前用户所拥有的订单：'+${session.userbuy.order}"></p>-->
+    </tbody>
+    <div>
+        历史纪录订单：
+
+    </div>
+    <a th:href="@{/Order/SelectOrder}">订单</a>
+    <a th:href="@{/Report/GetReport}">举报</a>
+</table>
+</body>
+<script th:src="@{/js/mainJs/cigarette.js}" ></script>
+</html>

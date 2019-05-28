@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>添加流通烟草</title>
+    <script src="../../resources/static/js/guanFangJs/jquery/2.0.0/jquery.min.js" th:src="@{/js/guanFangJs/jquery/2.0.0/jquery.min.js}"></script>
+    <link href="../../resources/static/css/guanFangCss/bootstrap/3.3.6/bootstrap.min.css" rel="stylesheet"   th:href="@{/css/guanFangCss/bootstrap/3.3.6/bootstrap.min.css}"/>
+    <script src="../../resources/static/js/guanFangJs/bootstrap/3.3.6/bootstrap.min.js" th:src="@{/js/guanFangJs/bootstrap/3.3.6/bootstrap.min.js}"></script>
+
+</head>
+<body>
+<div style="height: 100%;width: 100%;position: absolute;">
+    <!--这里是左边状态栏-->
+    <div style="height: 100%;width: 15%;background-color:#2A3F54;float: left;">
+        <div style="height: 10%;width: 100%;">
+            <div style="padding-top: 10%;color:#ECF0F1">
+                <h3 th:text="${'welcome,'+session.backadmin.name}"></h3>
+            </div>
+        </div>
+
+        <div id="menu" style="height: 80%;width: 100%;">
+            <script type="text/javascript">
+                $(document).ready(function () {
+                    $("#menu").load("/thymeleaf/backAdminLogin/html2")
+                })
+            </script>
+        </div>
+    </div>
+
+    <!--右边的主要内容部分-->
+    <div style="width: 85%;height: 100%;float: right;">
+        <div style="width: 100%;height: 5%;text-align: center;"><h3>添加烟草</h3></div>
+
+        <div style="height: 90%;width: 100%;">
+            <div style="width: 80%;margin: auto;height: 100%;padding-top: 5%;padding-left: 15%">
+                <div style="width: 50%;height: 90%;margin:auto;text-align: left;">
+
+                    <div class="col-xs-12">
+                        <form action="addCigarette" method="post" enctype="multipart/form-data"  class="form-inline">
+                            <div class="form-group">
+                                <label>烟草ID:</label><input  id="account1" name="account" style="width: 200px;" type="text" class="form-control"/><span id="tip" th:bgcolor="red"></span>
+                            </div>
+                            <br><br>
+                            <!--accountID:<input type="text"  name="account" id="account"><span id="tip" th:bgcolor="red"></span><br>-->
+                            <div class="form-group">
+                                <label>名字:</label><input class="form-control" type="text" name="name" id="name">
+                            </div>
+                            <br><br>
+                            <!--名字:<input type="text" name="name" id="name"><br>-->
+                            <!--容量:<input type="text" name="surplus" id="surplus"><br>-->
+                            <div class="form-group">
+                                <label>容量:</label><input class="form-control" type="number" name="surplus" id="surplus" list="greetings">
+                            </div>
+                            <br><br>
+                            <!--容量：<input type="number" name="surplus" id="surplus" list="greetings">-->
+                            <!-- 使用style="display:none;"将datalist元素设定为不显示 -->
+                            <datalist id="greetings" style="display:none;">
+                                <option value="1000">1000</option>
+                                <option value="3000">3000</option>
+                                <option value="5000">5000</option>
+                            </datalist>
+                            <br>
+                            <label>上传图片</label>
+                            <input type="file" name="file" accept="image/*" onchange="showPreview(this)"/>
+                            <p>图片:</p>
+                            <img id="img" th:width="100px" th:high="100px"/><br>
+                            <div class="form-group">
+                                <label>出货量:</label><input class="form-control" type="number" name="cumulative" id="cumulative">
+                            </div>
+                            <br><br>
+                            <!--出货量：<input type="number" name="cumulative" id="cumulative"><br>-->
+                            <div class="form-group">
+                                <label>价格:</label><input class="form-control" type="number" name="price" id="price">
+                            </div>
+                            <br><br>
+                            <!--价格：<input type="number" name="price" id="price"><br>-->
+                            <button class="btn btn-primary" type="submit" id="sub">新增</button>&nbsp;&nbsp;&nbsp;&nbsp;<button class="btn btn-primary"  type="reset">重置</button>
+
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div style="width: 100%;height: 5%">
+        </div>
+    </div>
+</div>
+<script th:src="@{/js/mainJs/backAdminAddCigarette.js}" ></script>
+</body>
+</html>

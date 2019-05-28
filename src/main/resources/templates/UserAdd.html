@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>普通用户注册</title>
+    <script src="../../resources/static/js/guanFangJs/jquery/2.0.0/jquery.min.js" th:src="@{/js/guanFangJs/jquery/2.0.0/jquery.min.js}"></script>
+    <link href="../../resources/static/css/guanFangCss/bootstrap/3.3.6/bootstrap.min.css" rel="stylesheet"   th:href="@{/css/guanFangCss/bootstrap/3.3.6/bootstrap.min.css}"/>
+    <script src="../../resources/static/js/guanFangJs/bootstrap/3.3.6/bootstrap.min.js" th:src="@{/js/guanFangJs/bootstrap/3.3.6/bootstrap.min.js}"></script>
+
+</head>
+<body style="width: 100%;height: 100%;position: absolute;">
+
+
+
+        <div style="width: 400px;height: 500px;margin: auto;background-color: white;text-align: center">
+            <h3>用户注册</h3><br>
+            <form class="form-inline">
+                <div class="form-group">
+                    <label>账号ID:</label><input id="userid" style="width: 200px;" type="text" class="form-control" placeholder="登陆账号" />
+                </div>
+                <br>
+                <br><br>
+                <div class="form-group">
+                    <label>设置密码:</label><input id="regpassword1" type="password" onkeyup="jc()" style="width: 200px; "class="form-control" maxlength="15" placeholder="不超15位的登陆密码" />
+                </div>
+                <br>
+                <label id="red" hidden style="color: red">密码不一致</label>
+                <br><br>
+                <div class="form-group">
+                    <label>确认密码:</label><input id="regpassword" onkeyup="jc()" type="password" style="width: 200px;" class="form-control" maxlength="15" placeholder="确认密码" />
+
+                </div>
+                <br>
+                <label id="green" hidden style="color: green">密码一致</label>
+                <br><br>
+                <div class="form-group">
+                    <label>联系方式:</label><input id="regphone" style="width: 200px;" class="form-control" />
+                </div>
+                <br>
+                <br><br>
+                所在地区: &nbsp;&nbsp;<select id="reglocation" class="form-control">
+                <option value="0">陆丰</option>
+                <option value="1">海丰</option>
+                <option value="2">城区</option>
+            </select>
+
+            </form>
+            <br><br>
+            <button class="btn btn-primary" id="regsubmit">
+                <span class="glyphicon glyphicon-log-in"></span>
+                注册
+            </button>
+            <button class="btn btn-danger" id="regback" onclick="back()">
+                <span class="glyphicon glyphicon-log-in"></span>
+                取消
+            </button>
+        </div>
+
+<script th:src="@{/js/mainJs/userAdd.js}" ></script>
+</body>
+</html>
