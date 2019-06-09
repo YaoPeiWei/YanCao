@@ -18,9 +18,9 @@
     </thead>
     <tbody>
     <tr th:each="c: ${cigarettes}">
-        <td th:text="${c.account}" th:value="${c.account}"></td>
-        <td th:text="${c.name}" th:value="${c.name}"></td>
-        <td th:text="${c.surplus}" th:value="${c.surplus}"></td>
+        <td th:text="${c.getAccount()}" th:value="${c.getAccount()}"></td>
+        <td th:text="${c.getName()}" th:value="${c.getName()}"></td>
+        <td th:text="${c.getSurplus()}" th:value="${c.getSurplus()}"></td>
         <td><button class="addorder" th:id="1">添加</button></td>
     </tr>
     <!--<p th:text="'当前用户所拥有的订单：'+${session.userbuy.order}"></p>-->
